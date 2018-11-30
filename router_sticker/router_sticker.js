@@ -8,17 +8,17 @@ router_sticker.use(bodyParse.urlencoded({extended: true}));
 
 
 router_sticker.get("/",async function(req, res){
-    console.log(`PARAM: ${req.query.hola}`);
+    //console.log(`PARAM: ${req.query.hola}`);
     nuevo_stricker = new Aux();
-    let nose = await nuevo_stricker.find();
-    //console.log(nose);
+    let respuesta = await nuevo_stricker.find();
+    console.log(respuesta);
     res.send("algo");
 });
 
 router_sticker.get("/consulta_especifica",async function(req, res){
     nuevo_stricker = new Aux();
-    let nose = await nuevo_stricker.findOne();
-    console.log(nose);
+    let respuesta = await nuevo_stricker.findOne();
+    console.log(respuesta);
     res.send("algo");
 });
 
@@ -30,7 +30,8 @@ router_sticker.get("/save",async function(req, res){
         //let dic = {codigo: req.body.codigo, descripcion: req.body.descripcion};
 
         try {
-            let nose = await nuevo_stricker.save(dic);
+            let respuesta = await nuevo_stricker.save(dic);
+            console.log(respuesta);
             res.send("algo salvado");
         } catch (error) {
             //console.log(error);

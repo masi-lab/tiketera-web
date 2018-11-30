@@ -11,7 +11,7 @@ app.use(bodyParse.urlencoded({extended: true}));
 //app.set("view engine", "jade");
 
 app.get("/", async function(req, res){
-    res.send("principal de principal");
+    res.send("principal");
 })
 
 app.use("/sticker", router_sticker);
