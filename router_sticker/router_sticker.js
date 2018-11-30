@@ -10,28 +10,27 @@ router_sticker.use(bodyParse.urlencoded({extended: true}));
 router_sticker.get("/",async function(req, res){
     //console.log(`PARAM: ${req.query.hola}`);
     nuevo_stricker = new Aux();
-    let respuesta = await nuevo_stricker.find();
+    let respuesta = await nuevo_stricker.find(req.query);
     console.log(respuesta);
     res.send("algo");
 });
 
 router_sticker.get("/consulta_especifica",async function(req, res){
     nuevo_stricker = new Aux();
-    let respuesta = await nuevo_stricker.findOne();
+    let respuesta = await nuevo_stricker.findOne(req.query);
     console.log(respuesta);
     res.send("algo");
 });
 
 
-router_sticker.get("/save",async function(req, res){
+router_sticker.post("/save",async function(req, res){
         nuevo_stricker = new Aux();
-        
-        let dic = {codigo: "codigo5", descripcion: "descripcion5"}; // BORRAR
-        //let dic = {codigo: req.body.codigo, descripcion: req.body.descripcion};
+
+        let dic = {codigo: req.body.codigo, descripcion: req.body.descripcion};
 
         try {
             let respuesta = await nuevo_stricker.save(dic);
-            console.log(respuesta);
+            //console.log(respuesta);
             res.send("algo salvado");
         } catch (error) {
             //console.log(error);

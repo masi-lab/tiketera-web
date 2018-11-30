@@ -19,8 +19,8 @@ class controlador_de_sticker
     }
     */
 
-    async find(){
-        let resultado = await Sticker.find();
+    async find(diccionario_datos){
+        let resultado = await Sticker.find(diccionario_datos);
         return resultado;
     }
 
