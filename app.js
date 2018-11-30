@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParse = require("body-parser");
+//why router_sticker/router_sticker??
 var router_sticker = require("./router_sticker/router_sticker");
 
 var app = express();
@@ -7,22 +8,16 @@ var app = express();
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({extended: true}));
 
-
-//app.set("view engine", "jade");
-
 app.get("/", async function(req, res){
-    res.send("principal");
+    res.send(`Nothing to do Here \nBut i have an Echoe for you:\nQuery: ${JSON.stringify(req.query)}
+    Body: ${JSON.stringify(req.body)});
 })
 
 app.use("/sticker", router_sticker);
 
 app.listen(8080);
 
-
-
-
-
-
+//Old code, waiting to be removed soon
 /*
 app.get("/login",function(req, res){
     User.find(function(err, doc){
