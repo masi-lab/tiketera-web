@@ -1,0 +1,5 @@
+Using this design
+https://codeburst.io/fractal-a-nodejs-app-structure-for-infinite-scale-d74dda57ee11
+
+Using this style of coding
+https://scotch.io/tutorials/authenticate-a-node-es6-api-with-json-web-tokens#toc-plan-of-attack
