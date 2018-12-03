@@ -1,5 +1,5 @@
 var express = require("express");
-var Aux = require("./regla_de_negocio_de_sticker/controlador_de_modelos_de_sticker/controlador_de_sticker").controlador_de_sticker;
+var Aux = require("../models_control/models_control").controlador_de_sticker;
 var router_sticker = express.Router();
 var bodyParse = require("body-parser");
 

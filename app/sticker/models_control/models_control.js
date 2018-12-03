@@ -1,4 +1,4 @@
-var Sticker = require("./models_de_sticker/sticker").Sticker;
+var Sticker = require("../models/sticker").Sticker;
 
 class controlador_de_sticker
 {
