@@ -34,6 +34,12 @@ class controlador_de_sticker
         let resultado = await sticker.save();
         return resultado;
     }
+
+    async update(id_obj_to_update, diccionario_datos_a_actualizar){
+        let resultado = await Sticker.findOne(id_obj_to_update);
+        resultado = await resultado.update(diccionario_datos_a_actualizar);
+        return resultado;
+    }
 }
 
 /*

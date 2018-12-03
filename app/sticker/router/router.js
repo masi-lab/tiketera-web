@@ -1,42 +1,28 @@
 var express = require("express");
-var Aux = require("../models_control/models_control").controlador_de_sticker;
 var router_sticker = express.Router();
 var bodyParse = require("body-parser");
+
+var sticker_rules = require("../business_rules/rules");
 
 router_sticker.use(bodyParse.json());
 router_sticker.use(bodyParse.urlencoded({extended: true}));
 
+//--------------------------------------------------------------------------------------------------------
 
-router_sticker.get("/",async function(req, res){
-    //console.log(`PARAM: ${req.query.hola}`);
-    nuevo_stricker = new Aux();
-    let respuesta = await nuevo_stricker.find(req.query);
-    console.log(respuesta);
-    res.send("algo");
-});
+router_sticker.get("/find", sticker_rules.find);
 
-router_sticker.get("/consulta_especifica",async function(req, res){
-    nuevo_stricker = new Aux();
-    let respuesta = await nuevo_stricker.findOne(req.query);
-    console.log(respuesta);
-    res.send("algo");
-});
+//--------------------------------------------------------------------------------------------------------
 
+router_sticker.get("/findOne", sticker_rules.findOne);
 
-router_sticker.post("/save",async function(req, res){
-        nuevo_stricker = new Aux();
+//--------------------------------------------------------------------------------------------------------
 
-        let dic = {codigo: req.body.codigo, descripcion: req.body.descripcion};
+router_sticker.post("/save",sticker_rules.save);
 
-        try {
-            let respuesta = await nuevo_stricker.save(dic);
-            //console.log(respuesta);
-            res.send("algo salvado");
-        } catch (error) {
-            //console.log(error);
-            res.send("algo NO salvado");      
-        }
-});
+//--------------------------------------------------------------------------------------------------------
 
+router_sticker.get("/update", sticker_rules.update);
+
+//--------------------------------------------------------------------------------------------------------
 
 module.exports = router_sticker;
