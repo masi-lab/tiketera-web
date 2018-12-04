@@ -3,13 +3,14 @@ var router_sticker = express.Router();
 var bodyParse = require("body-parser");
 
 var sticker_rules = require("../business_rules/rules");
+var sticker_param_rules = require("../business_rules/rules_of_param");
 
 router_sticker.use(bodyParse.json());
 router_sticker.use(bodyParse.urlencoded({extended: true}));
 
 //--------------------------------------------------------------------------------------------------------
 
-router_sticker.get("/find", sticker_rules.find);
+router_sticker.get("/find", sticker_param_rules.find, sticker_rules.find);
 
 //--------------------------------------------------------------------------------------------------------
 

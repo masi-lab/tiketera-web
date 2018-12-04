@@ -19,6 +19,15 @@ class controlador_de_sticker
     }
     */
 
+    static get_param(){
+        let schemaKeys = Object.keys(Sticker.schema.paths);
+
+        //delete schemaKeys["_id"];
+        //delete schemaKeys["__v"];
+        
+        return schemaKeys;
+    }
+
     async find(diccionario_datos){
         let resultado = await Sticker.find(diccionario_datos);
         return resultado;

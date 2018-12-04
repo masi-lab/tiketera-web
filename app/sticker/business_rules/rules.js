@@ -1,6 +1,7 @@
 
 var models_control = require("../models_control/models_control").controlador_de_sticker;
 
+
 module.exports = {
     update: async function (req, res){
         nuevo_stricker = new models_control();
@@ -34,17 +35,25 @@ module.exports = {
     }, 
 
     find: async function(req, res){
-        //console.log(`PARAM: ${req.query.hola}`);
         nuevo_stricker = new models_control();
-        let respuesta = await nuevo_stricker.find(req.query);
-        console.log(respuesta);
+
+        let respuesta = await nuevo_stricker.find(req.data);
+        //console.log(data);
         res.send(respuesta);
     },
 
     findOne: async function(req, res){
         nuevo_stricker = new models_control();
-        let respuesta = await nuevo_stricker.findOne(req.query);
+        let respuesta = await nuevo_stricker.findOne(JSON.parse(req.query.data));
         console.log(respuesta);
+        res.send(respuesta);
+    },
+    
+    print: async function(req, res){
+        nuevo_stricker = new models_control();
+        let respuesta = await nuevo_stricker.findOne(req.query);
+        //console.log(respuesta);
+
         res.send(respuesta);
     }
 }
