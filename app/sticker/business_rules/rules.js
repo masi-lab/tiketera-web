@@ -30,8 +30,11 @@ module.exports = {
             res.send(msg);
         } catch (error) {
             //console.log(error);
-            res.send(`Error: ${error}`);      
+            res.send(`Error: ${error}`);
         }
+
+
+        res.send(msg);
     }, 
 
     find: async function(req, res){

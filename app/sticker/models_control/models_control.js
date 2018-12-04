@@ -2,28 +2,8 @@ var Sticker = require("../models/sticker").Sticker;
 
 class controlador_de_sticker
 {
-    /*
-    async find_viejo(){
-        let promise = new Promise((resolve, reject) => {
-            Sticker.find(function(err, doc){
-                if(err !== null){
-                    resolve (err);
-                }else{
-                    resolve (doc);
-                }
-            });   
-        });
-
-        let result = await promise;
-        return(result);
-    }
-    */
-
     static get_param(){
         let schemaKeys = Object.keys(Sticker.schema.paths);
-
-        //delete schemaKeys["_id"];
-        //delete schemaKeys["__v"];
         
         return schemaKeys;
     }
@@ -40,7 +20,7 @@ class controlador_de_sticker
 
     async save(diccionario_datos){
         var sticker = new Sticker(diccionario_datos);
-        let resultado = await sticker.save();
+        let resultado = await sticker.save()
         return resultado;
     }
 
@@ -51,30 +31,50 @@ class controlador_de_sticker
     }
 }
 
-/*
-.then(
-            function(us){
-                return "Guardamos los datos";
-            },
-            function(err){
-                if(err){
-                    //console.log(String(err));
-                    return ["No pudimos guardar los datos", err];
-                }
-        })
-*/
+
 
 module.exports.controlador_de_sticker = controlador_de_sticker;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
+    async find_viejo(){
+        let promise = new Promise((resolve, reject) => {
+            Sticker.find(function(err, doc){
+                if(err !== null){
+                    resolve (err);
+                }else{
+                    resolve (doc);
+                }
+            });   
+        });
 
-var user = new User({email: req.body.email, 
-                        password: req.body.password,
-                        username: req.body.username})
-    /*user.save(function(err){
-        res.send("Datos guardados");
-    });*//*
-
-
-
-*/
+        let result = await promise;
+        return(result);
+    }
+    */

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-mongoose.connect("mongodb://localhost/stiker_0_2")
+mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true})
 
 var sticker_schema = new Schema(
     {

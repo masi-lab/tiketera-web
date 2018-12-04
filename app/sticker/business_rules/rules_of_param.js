@@ -1,29 +1,31 @@
 var models_control = require("../models_control/models_control").controlador_de_sticker;
 
-module.exports = {
-    find: function(req,res, next){
-        console.log("start")
+function get_param(req, param, ignore_param){
+    let data = {};
 
-        let ignore_param = ["_id", "__v"];
-        let param = [];
+    if (param.length == 0){
+        param = models_control.get_param();
+    }
 
-        let data = {};
-
-        if (param.length == 0){
-            param = models_control.get_param();
-        }
-
-        for (let key of param){
-            if(ignore_param.indexOf(key) == -1){
-                if (req.query[key]){
-                    data[key] = req.query[key];
-                }
+    for (let key of param){
+        if(ignore_param.indexOf(key) == -1){
+            if (req.query[key]){
+                data[key] = req.query[key];
             }
         }
+    }
 
-        req.data = data;
+    return data;
+}
 
-        console.log(data);
+module.exports = {
+    find: function(req,res, next){
+        let ignore_param = ["_id", "__v"];
+        let param = []; // si esta vacio te busca todo los parametros q tenga la "TABLA"
+
+        req.data = get_param(req, param, ignore_param);
+
+        //console.log(data);
         
         next();
     }
