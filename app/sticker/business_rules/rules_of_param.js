@@ -28,5 +28,27 @@ module.exports = {
         //console.log(data);
         
         next();
+    },
+
+    findOne: function(req,res, next){
+        let ignore_param = ["_id", "__v"];
+        let param = []; // si esta vacio te busca todo los parametros q tenga la "TABLA"
+
+        req.data = get_param(req, param, ignore_param);
+
+        //console.log(data);
+        
+        next();
+    },
+
+    update: function(req,res, next){
+        let ignore_param = ["__v"];
+        let param = []; // si esta vacio te busca todo los parametros q tenga la "TABLA"
+
+        req.data = get_param(req, param, ignore_param);
+
+        //console.log(data);
+        
+        next();
     }
 }

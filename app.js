@@ -1,6 +1,6 @@
 var express = require("express");
+require('express-async-errors');
 var bodyParse = require("body-parser");
-//why router_sticker/router_sticker??
 var router_sticker = require("./app/sticker/router/router");
 
 var app = express();
