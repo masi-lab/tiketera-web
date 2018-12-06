@@ -14,6 +14,14 @@
     "express-async-errors": "^3.1.1",
     "jade": "^1.11.0",
     "mongoose": "^5.3.13",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "bcrypt": "^3.0.2",
+    "bcrypt-nodejs": "0.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.1.0",
+    "global-tunnel": "^1.2.0",
+    "jsonwebtoken": "^8.4.0",
+    "parse-error": "^0.2.0",
+    "passport-jwt": "^4.0.0"
   }
 }
