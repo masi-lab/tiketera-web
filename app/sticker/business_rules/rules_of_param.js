@@ -18,6 +18,24 @@ function get_param(req, param, ignore_param){
     return data;
 }
 
+function post_body(req, param, ignore_param){
+    let data = {};
+
+    if (param.length == 0){
+        param = models_control.get_param();
+    }
+
+    for (let key of param){
+        if(ignore_param.indexOf(key) == -1){
+            if (req.body[key]){
+                data[key] = req.body[key];
+            }
+        }
+    }
+
+    return data;
+}
+
 module.exports = {
     find: function(req,res, next){
         let ignore_param = ["_id", "__v"];
@@ -48,6 +66,17 @@ module.exports = {
         req.data = get_param(req, param, ignore_param);
 
         //console.log(data);
+        
+        next();
+    },
+
+    save: function(req,res, next){
+        let ignore_param = ["_id", "__v"];
+        let param = []; // si esta vacio te busca todo los parametros q tenga la "TABLA"
+
+        req.data = post_body(req, param, ignore_param);
+
+        //console.log(req.data);
         
         next();
     }

@@ -1,5 +1,6 @@
 
 var models_control = require("../models_control/models_control").controlador_de_sticker;
+var Custom_error = require("../../tools/tools").custom_error;
 
 
 module.exports = {
@@ -22,20 +23,12 @@ module.exports = {
 
     save: async function (req, res, next){
         sticker = new models_control();
-    
-        //let dic = {codigo: req.body.codigo, descripcion: req.body.descripcion};
-    
-        //console.log(req.body);
+   
+        //console.log(req.data);
 
-        try {
-            let msg = await sticker.save(req.body);
-            //console.log(respuesta);
-            res.send(msg);
-        } catch (error) {
-            //console.log(error);
-            res.send(`Error: ${error}`);
-        }
+        //throw new Custom_error("100", "asd");
 
+        let msg = await sticker.save(req.data);
 
         //res.send(msg);
         req.data = msg;
