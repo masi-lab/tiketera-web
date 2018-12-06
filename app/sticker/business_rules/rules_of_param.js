@@ -79,5 +79,16 @@ module.exports = {
         //console.log(req.data);
         
         next();
-    }
+    },
+
+    print: function(req,res, next){
+        let ignore_param = ["__v"];
+        let param = ["_id", "quantity"]; // si esta vacio te busca todo los parametros q tenga la "TABLA"
+
+        req.data = get_param(req, param, ignore_param);
+
+        //console.log(req.data);
+        
+        next();
+    },
 }

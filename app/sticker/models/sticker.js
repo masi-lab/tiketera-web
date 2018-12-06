@@ -5,7 +5,7 @@ mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: tru
 
 var sticker_schema = new Schema(
     {
-        codigo: {type: String, required: false, maxlength: [50, "muy grande la cadena de texto"]},
+        codigo: {type: String, required: true, maxlength: [50, "muy grande la cadena de texto"]},
         descripcion: {type: String, required: false, maxlength: [50, "muy grande la cadena de texto"]}
     }
 );

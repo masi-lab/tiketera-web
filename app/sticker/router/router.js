@@ -12,23 +12,16 @@ router_sticker.use(bodyParse.urlencoded({extended: true}));
 async function errorHandler(err, req ,res, next){
     //console.log(err.message);
     //console.log(err.name);
-    let errorr = {}
-    if(err.code == undefined){
-        errorr["code"] = err.name; 
-        errorr["message"] = err.message; 
-    }else{
-        errorr["code"] = err.code; 
-        errorr["message"] = err.msg; 
-    }
+    let erro = {}
+
+    erro["name"] = err.name; 
+    erro["message"] = err.message; 
+    erro["code"] = err.code; 
 
     let result = {
       data: req.data,
-
-      //error: req.error || err.message
-      
-      error: errorr
+      error: erro
     }
-
 
     res.status(500).send(result);
   }
@@ -58,6 +51,10 @@ router_sticker.post("/save",sticker_param_rules.save ,sticker_rules.save);
 //--------------------------------------------------------------------------------------------------------
 
 router_sticker.get("/update",sticker_param_rules.update, sticker_rules.update);
+
+//--------------------------------------------------------------------------------------------------------
+
+router_sticker.get("/print",sticker_param_rules.print, sticker_rules.print);
 
 //--------------------------------------------------------------------------------------------------------
 

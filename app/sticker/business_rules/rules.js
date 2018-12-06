@@ -10,8 +10,8 @@ module.exports = {
         let dic_data_to_change = req.data;
         delete dic_data_to_change["_id"];
 
-        console.log(id_obj);
-        console.log(dic_data_to_change);
+        //console.log(id_obj);
+        //console.log(dic_data_to_change);
 
         let respuesta = await nuevo_stricker.update(id_obj, dic_data_to_change);
         console.log(respuesta);
@@ -26,7 +26,7 @@ module.exports = {
    
         //console.log(req.data);
 
-        //throw new Custom_error("100", "asd");
+        //throw new Custom_error("100", "name of error" ,"description of error");
 
         let msg = await sticker.save(req.data);
 
@@ -42,7 +42,7 @@ module.exports = {
         let respuesta = await nuevo_stricker.find(req.data);
         //console.log(data);
         //res.send(respuesta);
-        //throw Error('Error por que si'); // EXAMPLE OF ERROR
+
         req.data = respuesta;
         req.status = 200;
         next();
@@ -50,9 +50,9 @@ module.exports = {
 
     findOne: async function(req, res, next){
         nuevo_stricker = new models_control();
-        console.log(req.data);
+        //console.log(req.data);
         let respuesta = await nuevo_stricker.findOne(req.data);
-        console.log(respuesta);
+        //console.log(respuesta);
         //res.send(respuesta);
         req.data = respuesta;
         req.status = 200;
@@ -61,8 +61,15 @@ module.exports = {
     
     print: async function(req, res, next){
         nuevo_stricker = new models_control();
-        let respuesta = await nuevo_stricker.findOne(req.query);
-        //console.log(respuesta);
+
+        let id_obj = {_id: req.data._id};
+        let quantity = req.data.quantity;
+        quantity = Number(quantity);
+
+        let respuesta = await nuevo_stricker.findOne(id_obj);
+        console.log(respuesta);
+
+        console.log(quantity);
 
         //res.send(respuesta);
         req.data = respuesta;
@@ -70,4 +77,3 @@ module.exports = {
         next();
     }
 }
-

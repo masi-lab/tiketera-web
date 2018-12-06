@@ -1,7 +1,8 @@
-function Custom_error(code, msg){
+function Custom_error(code, name, msg){
 
   this.code =  code;
-  this.msg = msg;
+  this.message = msg;
+  this.name = name;
 
 }
 
