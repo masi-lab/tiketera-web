@@ -1,40 +1,17 @@
-var express = require("express");
-var router_sticker = express.Router();
-var bodyParse = require("body-parser");
+const express = require("express");
+const router_sticker = express.Router();
+const bodyParse = require("body-parser");
+const control_logeo = require('passport').authenticate('jwt', {session:false});
+const sticker_rules = require("../business_rules/rules");
+const sticker_param_rules = require("../business_rules/rules_of_param");
+const toSend = require("../../to_send_and_start_error/index.js").toSend;
+const errorHandler = require("../../to_send_and_start_error/index.js").errorHandler;
+const toSendError = require("../../to_send_and_start_error/index.js").toSendError;
+require('../../passport/passport')();
 
-var sticker_rules = require("../business_rules/rules");
-var sticker_param_rules = require("../business_rules/rules_of_param");
 
 router_sticker.use(bodyParse.json());
 router_sticker.use(bodyParse.urlencoded({extended: true}));
-
-//little errorhanler middleware
-async function errorHandler(err, req ,res, next){
-    //console.log(err.message);
-    //console.log(err.name);
-    let erro = {}
-
-    erro["name"] = err.name; 
-    erro["message"] = err.message; 
-    erro["code"] = err.code; 
-
-    let result = {
-      data: req.data,
-      error: erro
-    }
-
-    res.status(500).send(result);
-  }
-
-async function toSend(req, res, next){
-    let result = {
-        data: req.data,
-        error: req.error
-    }
-    res.status(req.status).send(result);
-    //console.log('pasamos por el ult midd');
-}
-
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -50,7 +27,7 @@ router_sticker.post("/save",sticker_param_rules.save ,sticker_rules.save);
 
 //--------------------------------------------------------------------------------------------------------
 
-router_sticker.get("/update",sticker_param_rules.update, sticker_rules.update);
+router_sticker.get("/update", control_logeo, sticker_param_rules.update, sticker_rules.update);
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -60,5 +37,6 @@ router_sticker.get("/print",sticker_param_rules.print, sticker_rules.print);
 
 router_sticker.use(toSend);
 router_sticker.use(errorHandler);
+router_sticker.use(toSendError);
 
 module.exports = router_sticker;
