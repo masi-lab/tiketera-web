@@ -1,7 +1,10 @@
+/*
+  Esto es la base de datos (modelo, etc)
+*/
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true})
+mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true}) // ESTO VA UNA SOLA VEZ
 
 var sticker_schema = new Schema(
     {

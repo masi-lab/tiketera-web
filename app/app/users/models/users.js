@@ -1,7 +1,13 @@
+/*
+  Esto es la base de datos (modelo, etc)
+*/
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const environment = process.env.NODE_ENV;
+
+// MUUY IMPORTANTE !!!!
+//mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true}) // ESTO VA UNA SOLA VEZ
 
 // schema maps to a collection
 const Schema = mongoose.Schema;

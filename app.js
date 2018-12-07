@@ -1,10 +1,11 @@
 var express = require("express");
 require('express-async-errors');
 var bodyParse = require("body-parser");
-var router_sticker = require("./app/sticker/router/router");
+//var router_sticker = require("./app/app/sticker/router/router");
 const passport = require('passport');
-const pe = require('parse-error');
+//const pe = require('parse-error');
 const cors = require('cors');
+const router_app = express.Router();
 
 var app = express();
 
@@ -23,6 +24,9 @@ app.get("/", async function(req, res){
     Body: ${JSON.stringify(req.body)}`);
 })
 
-app.use("/sticker", router_sticker);
+
+//Routes index
+const routes_index = require('./app/router/index.js');
+app.use('/api/', routes_index(router_app));
 
 app.listen(8080);

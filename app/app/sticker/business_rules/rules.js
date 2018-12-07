@@ -1,6 +1,8 @@
-
+/*
+    Este middleware sirve para realizar la logica de negocio
+*/
 var models_control = require("../models_control/models_control").controlador_de_sticker;
-var Custom_error = require("../../tools/tools").custom_error;
+var Custom_error = require("../../../tools/tools").custom_error;
 
 
 module.exports = {

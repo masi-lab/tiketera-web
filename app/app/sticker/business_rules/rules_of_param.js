@@ -1,3 +1,6 @@
+/*
+Este middleware sirve para que cuando llega una peticion REQUEST se obtengan los valores del BODY, PARAM, etc que se quieren recuperar
+*/
 var models_control = require("../models_control/models_control").controlador_de_sticker;
 
 function get_param(req, param, ignore_param){
