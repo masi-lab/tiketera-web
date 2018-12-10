@@ -2,7 +2,7 @@
     Este middleware sirve para realizar la logica de negocio
 */
 var models_control = require("../models_control/models_control").controlador_de_sticker;
-var custom_error = require("../../../tools/tools").custom_error;
+var Custom_error = require("../../../tools/tools").Custom_error;
 var fs = require('fs').promises;
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
    
         //console.log(req.data);
 
-        //throw new Custom_error("100", "name of error" ,"description of error");
+        throw new Custom_error("100", "name of error" ,"description of error");
 
         let msg = await sticker.save(req.data);
 
@@ -72,15 +72,18 @@ module.exports = {
         //console.log(respuesta);
 
         //console.log(quantity);
-
+        
         let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
                     '%END%\n' +
                     'Numero,Descripcion\n' +
                     `${respuesta.codigo},${respuesta.descripcion}`
-    
-        await fs.writeFile(`NewInvoice/${respuesta.codigo}.dat`, dato).catch(err=>{
-            throw new custom_error("10", "error archivo", "error al intentar grabar")
-        });
+        
+        for (let i=0; i < quantity; i++){
+            await fs.writeFile(`NewInvoice/${respuesta.codigo}_${i}.dat`, dato).catch(err=>{
+                throw new Custom_error("10", "error archivo", "error al intentar grabar")
+            });    
+        }
+        
 
         req.data = respuesta;
         req.status = 200;

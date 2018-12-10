@@ -1,6 +1,7 @@
 const { ExtractJwt, Strategy } = require('passport-jwt');
 const passport = require('passport')
 const User = require('../../app/users/models/users');
+var Custom_error_with_cut_tag = require("../../tools/tools").Custom_error_with_cut_tag;
 
 //strategy takes jwt, decrypt and get id from user. inyect in req as req.user
 module.exports = function(){
@@ -15,7 +16,7 @@ module.exports = function(){
             return done(null, user);
         }else{
             //return done(null, false); // podrias ser error
-            throw new Custom_error("100", "Error de logeo" ,"No se encuentra autorizado a realizar esta operacion");
+            throw new Custom_error_with_cut_tag("100", "Error de logeo" ,"No se encuentra autorizado a realizar esta operacion");
         }
     }));
 }

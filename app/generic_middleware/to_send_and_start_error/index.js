@@ -1,7 +1,7 @@
 //little errorhanler middleware
 async function errorHandler(err, req ,res, next){
     let errors = []
-    console.log(err);
+    //console.log(err);
     if (err.message.includes('CUT_TAG')){
         // mongoose package all the validation errors, so we can have
         //more than 1 error

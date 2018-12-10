@@ -1,7 +1,7 @@
 /*
   Esto es la base de datos (modelo, etc)
 */
-var Custom_error = require("../../../tools/tools").custom_error;
+var Custom_error_with_cut_tag = require("../../../tools/tools").Custom_error_with_cut_tag;
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
@@ -9,21 +9,21 @@ mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: tru
 
 var sticker_schema = new Schema(
     {
-        codigo: {type: String, default:" ", required: true, maxlength: [50, "muy grande la cadena de texto"]},
-        descripcion: {type: String, default:" ", required: false, maxlength: [50, "muy grande la cadena de texto"]}
+        codigo: {type: String, default:"", required: true, maxlength: [50, "muy grande la cadena de texto"]},
+        descripcion: {type: String, default:"", required: false, maxlength: [50, "muy grande la cadena de texto"]}
     }
 );
 
 // Esto es una forma de poner un VALIDADOR CUSTOM
-/*
+
 sticker_schema.path('codigo').validate(function(v) {
     if (v.length < 2 ) {
-      let trueError = new Custom_error("101", "titulo error", "codigo menor a 4 digitos")    
+      let trueError = new Custom_error_with_cut_tag("101", "titulo error", "codigo menor a 4 digitos")    
       throw new Error(JSON.stringify(trueError))  
     }
     return true;
   })
-*/
+
 var Sticker = mongoose.model("Sticker", sticker_schema);
 
 module.exports.Sticker = Sticker;
