@@ -2,8 +2,8 @@
     Este middleware sirve para realizar la logica de negocio
 */
 var models_control = require("../models_control/models_control").controlador_de_sticker;
-var Custom_error = require("../../../tools/tools").custom_error;
-
+var custom_error = require("../../../tools/tools").custom_error;
+var fs = require('fs').promises;
 
 module.exports = {
     update: async function (req, res, next){
@@ -69,11 +69,23 @@ module.exports = {
         quantity = Number(quantity);
 
         let respuesta = await nuevo_stricker.findOne(id_obj);
-        console.log(respuesta);
+        //console.log(respuesta);
 
-        console.log(quantity);
+        //console.log(quantity);
 
-        //res.send(respuesta);
+/*
+        f = open('NewInvoice\imprimir_' + self._depurar_codigo(codigo) + '_' + str(i) + '.dat','w')
+            f.write('%BTW% /AF=c:\command\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n')
+            f.write('%END%\n')
+            f.write('Numero,Descripcion\n')
+            f.write(codigo + ',' + descripcion)
+            f.close()
+*/
+
+        await fs.writeFile("NewInvoice/asd.dat", 'Hello content!').catch(err=>{
+            throw new custom_error("10", "error archivo", "error al intentar grabar")
+        });
+
         req.data = respuesta;
         req.status = 200;
         next();
