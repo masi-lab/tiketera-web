@@ -73,16 +73,12 @@ module.exports = {
 
         //console.log(quantity);
 
-/*
-        f = open('NewInvoice\imprimir_' + self._depurar_codigo(codigo) + '_' + str(i) + '.dat','w')
-            f.write('%BTW% /AF=c:\command\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n')
-            f.write('%END%\n')
-            f.write('Numero,Descripcion\n')
-            f.write(codigo + ',' + descripcion)
-            f.close()
-*/
-
-        await fs.writeFile("NewInvoice/asd.dat", 'Hello content!').catch(err=>{
+        let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
+                    '%END%\n' +
+                    'Numero,Descripcion\n' +
+                    `${respuesta.codigo},${respuesta.descripcion}`
+    
+        await fs.writeFile(`NewInvoice/${respuesta.codigo}.dat`, dato).catch(err=>{
             throw new custom_error("10", "error archivo", "error al intentar grabar")
         });
 
