@@ -24,22 +24,6 @@ class UserError extends Custom_error_with_cut_tag {
   }
 }
 
-
-class Custom_error extends Error {
-    constructor(code, nameError, message) {
-        super(message);
-        // Ensure the name of this error is the same as the class name
-        this.name = nameError;
-        this.code = code;
-        this.msg = message
-        Error.captureStackTrace(this, this.constructor);
-    }
-        setName(name) {
-        this.name = name
-    }
-}
-
-
 function depurar_codigo(codigo){
     let permitidos = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789"
     respuesta = ""
@@ -53,6 +37,31 @@ function depurar_codigo(codigo){
     return respuesta;
 }
 
+//----------------------------------------------------------------------------------------------
+
+//Base Extend to errors outside mongoose Scope
+class Custom_error extends Error {
+    constructor(code, nameError, message) {
+      super(message);
+      this.name = nameError
+      this.code = code
+      Error.captureStackTrace(this, this.constructor);
+    }
+    getError(){
+      return {name:this.name, message:this.message,code:this.code}
+    }
+  }
+
+  //One per type of errors
+  class UnauthorizedError extends Custom_error{
+    constructor(code, message) {
+      super(message, code, 'UnauthorizedError');
+      Error.captureStackTrace(this, this.constructor);
+    }
+  }
+
+
+//----------------------------------------------------------------------------------------------
 
 module.exports.depurar_codigo = depurar_codigo
 

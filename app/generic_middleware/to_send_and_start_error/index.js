@@ -23,6 +23,10 @@ async function errorHandler(err, req ,res, next){
         dic.code = err.CUT_TAG.code;
         errors.push(dic);
         //console.log(errors);
+    }else if(err.getError){
+        // if it is a custom error has getError() defined
+        errors.push(err.getError())
+      
     }else{
         errors.push(err)
     }

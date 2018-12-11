@@ -3,6 +3,7 @@
 */
 var models_control = require("../models_control/models_control").controlador_de_sticker;
 var Custom_error = require("../../../tools/tools").Custom_error;
+var Custom_error_tag = require("../../../tools/tools").Custom_error_with_cut_tag;
 var fs = require('fs').promises;
 
 module.exports = {
@@ -28,7 +29,8 @@ module.exports = {
    
         //console.log(req.data);
 
-        throw new Custom_error("100", "name of error" ,"description of error");
+        //throw new Custom_error("100", "name of error" ,"description of error");
+        //throw new Custom_error_tag("100", "name of error" ,"description of error");
 
         let msg = await sticker.save(req.data);
 
