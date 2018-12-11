@@ -8,7 +8,6 @@ class controlador_de_users
 {
     static get_param(){
         let schemaKeys = Object.keys(Models.schema.paths);
-        
         return schemaKeys;
     }
 

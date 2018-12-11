@@ -12,7 +12,8 @@ const router_user = express.Router();
 
 
 // Declaracion de middleware intermedios
-const control_logeo = require('passport').authenticate('jwt', {session:false});
+//const control_logeo = require('passport').authenticate('jwt', {session:false});
+const control_logeo = require('../../../generic_middleware/passport/middleware_passport').middle_passport;
 const controller = require('../business_rules/users');
 const users_param_rules = require("../business_rules/rules_of_param");
 // Declaracion de middleware finales

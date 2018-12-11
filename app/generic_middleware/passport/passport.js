@@ -1,6 +1,6 @@
 const { ExtractJwt, Strategy } = require('passport-jwt');
 const passport = require('passport')
-const User = require('../../app/users/models/users');
+const User = require('../../app/users/models/users').Users;
 var Custom_error_with_cut_tag = require("../../tools/tools").Custom_error_with_cut_tag;
 
 //strategy takes jwt, decrypt and get id from user. inyect in req as req.user

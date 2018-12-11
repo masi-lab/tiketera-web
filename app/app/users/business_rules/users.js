@@ -2,7 +2,7 @@
     Este middleware sirve para realizar la logica de negocio
 */
 const mongoose = require('mongoose');
-const User = require('../models/users');
+const User = require('../models/users').Users;
 /*
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 
@@ -16,7 +16,7 @@ module.exports = {
 
     add: async (req, res, next) => {
         let dic = {name: req.data.name, password: req.data.password};
-
+        //console.log(dic);
         const user = new User(dic)
         
         await user.save()

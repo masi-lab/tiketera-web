@@ -59,4 +59,7 @@ userSchema.methods.toWeb = function(){
   delete json.password; // i dont wanna send hash pwd
   return json;
 };
-module.exports = mongoose.model('User', userSchema);
+
+var Users = mongoose.model("Users", userSchema);
+
+module.exports.Users = Users;

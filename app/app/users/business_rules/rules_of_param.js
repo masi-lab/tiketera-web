@@ -22,6 +22,7 @@ function get_param(req, param, ignore_param){
 }
 
 function post_body(req, param, ignore_param){
+
     let data = {};
 
     if (param.length == 0){
@@ -43,11 +44,8 @@ module.exports = {
     find: function(req,res, next){
         let ignore_param = ["_id", "__v"];
         let param = []; // si esta vacio te busca todo los parametros q tenga la "TABLA"
-
         req.data = get_param(req, param, ignore_param);
-
-        //console.log(data);
-        
+      
         next();
     }
 }
