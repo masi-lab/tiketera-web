@@ -6,14 +6,13 @@
 //const passport = require('passport');
 
 // Iniciacion
-require('../../../generic_middleware/passport/passport')();
 const express = require("express");
 const router_user = express.Router();
 
 
 // Declaracion de middleware intermedios
-//const control_logeo = require('passport').authenticate('jwt', {session:false});
-const control_logeo = require('../../../generic_middleware/passport/middleware_passport').middle_passport;
+const passport = require('passport');
+let control_logeo = passport.authenticate(['bearer', 'guest'], { session: false })
 const controller = require('../business_rules/users');
 const users_param_rules = require("../business_rules/rules_of_param");
 // Declaracion de middleware finales
@@ -22,11 +21,14 @@ const errorHandler = require("../../../generic_middleware/to_send_and_start_erro
 const toSendError = require("../../../generic_middleware/to_send_and_start_error/index.js").toSendError;
 
 
+
+
 //--------------------------------------------------------------------------------------------------------
 
 //Middleware intermedios
 router_user.post("/add", users_param_rules.find, controller.add);
 router_user.get("/", control_logeo, controller.getMe);
+router_user.get("/logear", users_param_rules.find, controller.login);
 
 //--------------------------------------------------------------------------------------------------------
 

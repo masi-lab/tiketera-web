@@ -15,14 +15,14 @@ class Custom_error_with_cut_tag extends Error {
   }
 }
 
-// Ejemplo de error cumtomizado
 class UserError extends Custom_error_with_cut_tag {
-  constructor(message, code) {
-    super(message, code, 'UserError');
-    //this.CUT_TAG.name = this.constructor.name
+  constructor(code, message) {
+    super(code, 'UserError', message);
+    
     Error.captureStackTrace(this, this.constructor);
   }
 }
+module.exports.UserError = UserError
 
 function depurar_codigo(codigo){
     let permitidos = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789"
@@ -60,6 +60,13 @@ class Custom_error extends Error {
     }
   }
 
+  //One per type of errors
+class AuthError extends Custom_error {
+  constructor(code, message) {
+    super(code, 'AuthError', message);
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 
 //----------------------------------------------------------------------------------------------
 
@@ -69,3 +76,5 @@ module.exports.UserError = UserError
 
 module.exports.Custom_error_with_cut_tag = Custom_error_with_cut_tag;
 module.exports.Custom_error = Custom_error;
+
+module.exports.AuthError = AuthError;

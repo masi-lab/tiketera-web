@@ -48,6 +48,7 @@ async function toSend(req, res, next){
         error: req.error
     }
     //console.log("ultimo send");
+    req.status = req.status || 200;
     res.status(req.status).send(result);
     //console.log('pasamos por el ult midd');
 }

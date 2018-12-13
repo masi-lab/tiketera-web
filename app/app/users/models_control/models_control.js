@@ -4,39 +4,52 @@
 
 var Models = require("../models/users").Users;
 
-class controlador_de_users
+module.exports.controlador_de_users =
 {
-    static get_param(){
+    get_param: async ()=>{
         let schemaKeys = Object.keys(Models.schema.paths);
         return schemaKeys;
-    }
+    },
 
-    async find(diccionario_datos){
+    find: async (diccionario_datos)=>{
         let resultado = await Models.find(diccionario_datos);
         return resultado;
-    }
+    },
 
-    async findOne(diccionario_datos){
+    findOne: async (diccionario_datos) => {
         let resultado = await Models.findOne(diccionario_datos);
+        delete resultado.__v;
         return resultado;
-    }
+    },
 
-    async save(diccionario_datos){
+    save: async (diccionario_datos)=> {
         var models = new Models(diccionario_datos);
         let resultado = await models.save()
         return resultado;
-    }
+    },
 
-    async update(id_obj_to_update, diccionario_datos_a_actualizar){
+    update: async (id_obj_to_update, diccionario_datos_a_actualizar) => {
         let resultado = await Models.findOne(id_obj_to_update);
         resultado = await resultado.update(diccionario_datos_a_actualizar);
         return resultado;
-    }
+    },
+
+    findById: async function (id) {
+        let resultado = await Models.findById(id);
+        return resultado;
+    },
+
+    toWeb: async (id) => {
+        let user = await module.exports.controlador_de_users.findById(id);
+        return await user.toWeb(id);
+    },
+
+    getJWT: async (id) => {
+        let user = await module.exports.controlador_de_users.findById(id);
+        return user.findById(id);
+    },
 }
 
-
-
-module.exports.controlador_de_users = controlador_de_users;
 
 
 

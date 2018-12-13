@@ -5,7 +5,7 @@ var Custom_error_with_cut_tag = require("../../../tools/tools").Custom_error_wit
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true}) // ESTO VA UNA SOLA VEZ
+//mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true}) // ESTO VA UNA SOLA VEZ
 
 var sticker_schema = new Schema(
     {
