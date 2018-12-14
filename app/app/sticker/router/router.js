@@ -23,6 +23,7 @@ const toSendError = require("../../../generic_middleware/to_send_and_start_error
 //--------------------------------------------------------------------------------------------------------
 
 //Middleares intermedios
+
 router_sticker.get("/find", sticker_param_rules.find, sticker_rules.find);
 router_sticker.get("/findOne", sticker_param_rules.findOne, sticker_rules.findOne);
 router_sticker.post("/save",sticker_param_rules.save ,sticker_rules.save);

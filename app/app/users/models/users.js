@@ -58,6 +58,7 @@ userSchema.methods.toWeb = function () {
   delete json.password; // i dont wanna send hash pwd
   delete json._id; // already sent in id
   delete json.__v // front dont need it
+  json.id = json.id.toString();
   return json;
 };
 
