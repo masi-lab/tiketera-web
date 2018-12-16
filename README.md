@@ -6,4 +6,4 @@ The ticket printer takes those files and print them accordingly
 Feel free to colaborate in cleaning code and design
 
 #Autors
-cinsua, fede-p
+cinsua, fede-p, masi-lab
