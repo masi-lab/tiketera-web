@@ -23,6 +23,9 @@ const toSend = require("../../../generic_middleware/to_send_and_start_error/inde
 const errorHandler = require("../../../generic_middleware/to_send_and_start_error/index.js").errorHandler;
 const toSendError = require("../../../generic_middleware/to_send_and_start_error/index.js").toSendError;
 
+const AuthError = require('../../../tools/tools').AuthError
+
+
 // GraphQL schema
 var schema = buildSchema(`
     type Query {
@@ -46,8 +49,12 @@ var schema = buildSchema(`
 `);
 
 // Esto reemplazaria los middleware
-var getUser = async function(args) { 
-    //console.log(args);
+var getUser = async function(args, req) { 
+    // HERE WE CAUGHT THE USER n REQ
+    console.log(`Logeado como: ${req.user.username}`);
+
+    throw new AuthError("000", "Este modulo no acepta user INVITADO");
+
     let respuesta = {};
     
     try {
@@ -56,25 +63,43 @@ var getUser = async function(args) {
         respuesta.error = error.getError()
     }
     
-    console.log(respuesta);
+    //console.log(respuesta);
     return respuesta;
 };
 
-var root = {
+var  root = {
     get_User: getUser,
 };
 
+//--------------------------------------------------------------------------------------------------------
+function loggingMiddleware(req, res, next) {
+    throw new UserError("000", "Este modulo no acepta user INVITADO");
+    console.log('ip:', req.ip);
+    // lets fake the user!!
+    req.user = {username:'supermegaarchieadmin'}
+    res.status = 205
+    next();
+  }
 
 
+router_user.use(control_logeo);
+//router_user.use(loggingMiddleware);
 //--------------------------------------------------------------------------------------------------------
 //Middleware GrapshQL
 
-router_user.use('/', express_graphql({
+router_user.use('/', express_graphql((req, res, next) => ({
     schema: schema,
     rootValue: root,
-    graphiql: false
-}));
-
+    graphiql: false,
+    formatError: (err) => {
+        console.log("-------------------------------------");
+        console.log(err.originalError.getError());
+        console.log("-------------------------------------");
+        console.log(req.body);
+        console.log("-------------------------------------");
+    }
+    //req
+})));
 
 
 //--------------------------------------------------------------------------------------------------------
@@ -85,13 +110,12 @@ router_user.use('/', express_graphql({
 //router_user.get("/logear", users_param_rules.find, controller.login);
 
 //--------------------------------------------------------------------------------------------------------
-/*
-// Esto no serviria mas si se usaria GraphQL
+
 //Middleware finales
 router_user.use(toSend);
 router_user.use(errorHandler);
 router_user.use(toSendError);
-*/
+
 //--------------------------------------------------------------------------------------------------------
 
 module.exports = router_user;

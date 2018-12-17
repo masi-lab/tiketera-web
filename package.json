@@ -1,7 +1,7 @@
 {
-  "name": "hola_express",
+  "name": "ticketera",
   "version": "1.0.0",
-  "description": "hola mundo con express",
+  "description": "ticket para el lab",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

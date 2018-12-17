@@ -22,7 +22,7 @@ class UserError extends Custom_error_with_cut_tag {
     Error.captureStackTrace(this, this.constructor);
   }
 }
-module.exports.UserError = UserError
+//module.exports.UserError = UserError
 
 function depurar_codigo(codigo){
     let permitidos = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789"

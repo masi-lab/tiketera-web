@@ -33,7 +33,7 @@ const verifyToken = async function (token, done) {
     if (!user) {
       return done(new AuthError('USR_NOT_FOUND', 'User not found'))
     }
-
+    
     return done(null, user)
   })
 }
