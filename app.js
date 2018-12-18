@@ -10,6 +10,8 @@ const db = require('./config/DB')
 var server = require('./tools/serverTools')
 var app = express();
 
+const not_route = require("./app/app/not_route/router/router");
+
 //BodyParse
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({extended: true}));
@@ -35,6 +37,7 @@ app.get("/", async function(req, res){
 //Routes index
 const routes_index = require('./app/router/index.js');
 app.use('/api/', routes_index(router_app));
+app.use("/*", not_route);
 
 app.listen(`${CONFIG.PORT}`, () => {
     console.log(`${server.tagGreen} ${CONFIG.APP_NAME} started at ${Date().toString().slice(0, 24)}\n${server.tagCyan} Listening on Port${CONFIG.PORT}`);

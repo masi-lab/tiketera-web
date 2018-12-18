@@ -18,11 +18,13 @@ const passport = require('passport');
 let control_logeo = passport.authenticate(['bearer', 'guest'], { session: false })
 const controller = require('../business_rules/users');
 const users_param_rules = require("../business_rules/rules_of_param");
+
 // Declaracion de middleware finales
 const toSend = require("../../../generic_middleware/to_send_and_start_error/index.js").toSend;
 const errorHandler = require("../../../generic_middleware/to_send_and_start_error/index.js").errorHandler;
 const toSendError = require("../../../generic_middleware/to_send_and_start_error/index.js").toSendError;
 
+// Declaraciones de errores
 const AuthError = require('../../../tools/tools').AuthError
 
 
@@ -51,18 +53,14 @@ var schema = buildSchema(`
 // Esto reemplazaria los middleware
 var getUser = async function(args, req) { 
     // HERE WE CAUGHT THE USER n REQ
-    console.log(`Logeado como: ${req.user.username}`);
+    //console.log(`Logeado como: ${req.user.username}`);
 
-    throw new AuthError("000", "Este modulo no acepta user INVITADO");
+    
+    //throw new AuthError("000", "Este modulo no acepta user INVITADO");
 
     let respuesta = {};
-    
-    try {
-        respuesta  = await controller.login2(args);    
-    } catch (error) {
-        respuesta.error = error.getError()
-    }
-    
+    respuesta  = await controller.login2(args);   
+
     //console.log(respuesta);
     return respuesta;
 };
@@ -72,18 +70,11 @@ var  root = {
 };
 
 //--------------------------------------------------------------------------------------------------------
-function loggingMiddleware(req, res, next) {
-    throw new UserError("000", "Este modulo no acepta user INVITADO");
-    console.log('ip:', req.ip);
-    // lets fake the user!!
-    req.user = {username:'supermegaarchieadmin'}
-    res.status = 205
-    next();
-  }
-
 
 router_user.use(control_logeo);
-//router_user.use(loggingMiddleware);
+
+
+
 //--------------------------------------------------------------------------------------------------------
 //Middleware GrapshQL
 
@@ -92,15 +83,24 @@ router_user.use('/', express_graphql((req, res, next) => ({
     rootValue: root,
     graphiql: false,
     formatError: (err) => {
-        console.log("-------------------------------------");
-        console.log(err.originalError.getError());
-        console.log("-------------------------------------");
-        console.log(req.body);
-        console.log("-------------------------------------");
-    }
-    //req
-})));
 
+        //res.send(err.originalError.getError())
+
+        let errors = []
+        
+        errors.push(err.originalError.getError())
+
+        let result = {
+            success: false,
+            //data: req.data,
+            error: errors
+        }
+    
+        req.result = result;
+
+        next()
+    }
+})));
 
 //--------------------------------------------------------------------------------------------------------
 // Esto no serviria mas si se usaria GraphQL
@@ -119,4 +119,3 @@ router_user.use(toSendError);
 //--------------------------------------------------------------------------------------------------------
 
 module.exports = router_user;
-

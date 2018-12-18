@@ -68,6 +68,13 @@ class AuthError extends Custom_error {
   }
 }
 
+class pag_not_found extends Custom_error {
+  constructor(code, message) {
+    super(code, 'Pag not found', message);
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
 //----------------------------------------------------------------------------------------------
 
 module.exports.depurar_codigo = depurar_codigo
@@ -78,3 +85,4 @@ module.exports.Custom_error_with_cut_tag = Custom_error_with_cut_tag;
 module.exports.Custom_error = Custom_error;
 
 module.exports.AuthError = AuthError;
+module.exports.pag_not_found = pag_not_found;

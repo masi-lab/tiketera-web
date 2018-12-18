@@ -37,7 +37,8 @@ async function errorHandler(err, req ,res, next){
         error: errors
     }
 
-    req.result = result;
+    if(req.result === undefined)
+        req.result = result;
 
     next(err);
   }
@@ -56,6 +57,7 @@ async function toSend(req, res, next){
 
 async function toSendError(err, req ,res, next){
     //console.log("ultimo error");
+    //console.log(req.result)
     res.status(500).send(req.result);
 }
 
