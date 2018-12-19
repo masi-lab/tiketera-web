@@ -18,7 +18,7 @@ const pag_not_found = require('../../../tools/tools').pag_not_found
 
 //--------------------------------------------------------------------------------------------------------
 function pag_not_found_Middleware(req, res, next) {
-    throw new pag_not_found("404", "Pag not found");
+  throw new pag_not_found("404", "Pag not found");
   }
 
 //--------------------------------------------------------------------------------------------------------

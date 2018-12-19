@@ -5,6 +5,7 @@ var models_control = require("../models_control/models_control").controlador_de_
 var Custom_error = require("../../../tools/tools").Custom_error;
 var Custom_error_tag = require("../../../tools/tools").Custom_error_with_cut_tag;
 var fs = require('fs').promises;
+const pag_not_found = require('../../../tools/tools').pag_not_found
 
 module.exports = {
     update: async function (req, res, next){
@@ -90,5 +91,24 @@ module.exports = {
         req.data = respuesta;
         req.status = 200;
         next();
-    }
+    },
+
+     // Middleware para control de rutas
+    init_url: async (req, res, next) => {
+        req.url_vilida = false;
+        next();
+    },
+     // Middleware para control de rutas
+     set_url: async (req, res, next) => {
+        req.url_vilida = true;
+        next();
+    },
+     // Middleware para control de rutas
+     control_rout: async (req, res, next) => {
+        //console.log(req.params[0]);
+        if(!req.url_vilida){
+            throw new pag_not_found('404', 'pag not fuond');
+        }
+        next();
+    },
 }

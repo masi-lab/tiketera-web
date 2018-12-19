@@ -23,13 +23,15 @@ const toSendError = require("../../../generic_middleware/to_send_and_start_error
 //--------------------------------------------------------------------------------------------------------
 
 //Middleares intermedios
-
-router_sticker.get("/find", sticker_param_rules.find, sticker_rules.find);
-router_sticker.get("/findOne", sticker_param_rules.findOne, sticker_rules.findOne);
-router_sticker.post("/save",sticker_param_rules.save ,sticker_rules.save);
-router_sticker.get("/update", sticker_param_rules.update, sticker_rules.update);
-router_sticker.get("/print",sticker_param_rules.print, sticker_rules.print);
-
+router_sticker.use('/*', sticker_rules.init_url); // Para controlar que si a futuro se usa una URL valida
+//-------------------------------------------------
+router_sticker.get("/find", sticker_rules.set_url, sticker_param_rules.find, sticker_rules.find);
+router_sticker.get("/findOne", sticker_rules.set_url, sticker_param_rules.findOne, sticker_rules.findOne);
+router_sticker.post("/save", sticker_rules.set_url, sticker_param_rules.save ,sticker_rules.save);
+router_sticker.get("/update", sticker_rules.set_url, sticker_param_rules.update, sticker_rules.update);
+router_sticker.get("/print", sticker_rules.set_url, sticker_param_rules.print, sticker_rules.print);
+//-------------------------------------------------
+router_sticker.use('/*', sticker_rules.control_rout); // Se verifica si se uso una URL valida
 //--------------------------------------------------------------------------------------------------------
 
 //Middleware finales

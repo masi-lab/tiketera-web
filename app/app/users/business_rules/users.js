@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const config_guest = require('../../../strategies/config')();
 const User = require('../models_control/models_control').controlador_de_users;
 const AuthError = require('../../../tools/tools').AuthError;
+const pag_not_found = require('../../../tools/tools').pag_not_found
 
 /*
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
@@ -72,4 +73,13 @@ module.exports = {
     req.data = { user, message: 'Saved' }
     return next()
   },
+
+  // Middleware de control de rutas
+  control_rout: async (req, res, next) => {
+    //console.log(req.params[0]);
+    if(req.params[0] !== ''){
+        throw new pag_not_found('404', 'pag not fuond');
+    }
+    next();
+  }
 }
