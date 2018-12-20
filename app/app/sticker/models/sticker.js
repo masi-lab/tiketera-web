@@ -3,6 +3,7 @@
 */
 var Custom_error_with_cut_tag = require("../../../tools/tools").Custom_error_with_cut_tag;
 var mongoose = require("mongoose");
+var mongoose_delete = require('mongoose-delete');
 var Schema = mongoose.Schema;
 
 //mongoose.connect("mongodb://localhost/stiker_0_2", options={useNewUrlParser: true}) // ESTO VA UNA SOLA VEZ
@@ -18,11 +19,13 @@ var sticker_schema = new Schema(
 
 sticker_schema.path('codigo').validate(function(v) {
     if (v.length < 2 ) {
-      let trueError = new Custom_error_with_cut_tag("101", "titulo error", "codigo menor a 4 digitos")    
+      let trueError = new Custom_error_with_cut_tag("101", "titulo error", "codigo menor a 3 digitos")    
       throw new Error(JSON.stringify(trueError))  
     }
     return true;
-  })
+})
+
+sticker_schema.plugin(mongoose_delete, { overrideMethods: 'all' });
 
 var Sticker = mongoose.model("Sticker", sticker_schema);
 

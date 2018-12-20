@@ -30,6 +30,7 @@ router_sticker.get("/findOne", sticker_rules.set_url, sticker_param_rules.findOn
 router_sticker.post("/save", sticker_rules.set_url, sticker_param_rules.save ,sticker_rules.save);
 router_sticker.get("/update", sticker_rules.set_url, sticker_param_rules.update, sticker_rules.update);
 router_sticker.get("/print", sticker_rules.set_url, sticker_param_rules.print, sticker_rules.print);
+router_sticker.get("/delete", sticker_rules.set_url, sticker_param_rules.deleteOne, sticker_rules.deleteOne);
 //-------------------------------------------------
 router_sticker.use('/*', sticker_rules.control_rout); // Se verifica si se uso una URL valida
 //--------------------------------------------------------------------------------------------------------

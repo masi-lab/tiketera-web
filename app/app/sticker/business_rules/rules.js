@@ -18,7 +18,7 @@ module.exports = {
         //console.log(dic_data_to_change);
 
         let respuesta = await nuevo_stricker.update(id_obj, dic_data_to_change);
-        console.log(respuesta);
+        //console.log(respuesta);
         //res.send("updated");
         req.data = respuesta;
         req.status = 200;
@@ -43,6 +43,14 @@ module.exports = {
 
     find: async function(req, res, next){
         nuevo_stricker = new models_control();
+ 
+        //console.log(req.data) 
+        for(data in req.data){
+            if(data != '_id'){
+                req.data[data] = {$regex: req.data[data]};
+            }
+        }
+        //console.log(req.data) 
 
         let respuesta = await nuevo_stricker.find(req.data);
         //console.log(data);
@@ -54,11 +62,27 @@ module.exports = {
     },
 
     findOne: async function(req, res, next){
-        nuevo_stricker = new models_control();
+        nuevo_stricker = new models_control()
+        
+        for(data in req.data){
+            if(data != '_id'){
+                req.data[data] = {$regex: req.data[data]};
+            }
+        }
+
         //console.log(req.data);
         let respuesta = await nuevo_stricker.findOne(req.data);
         //console.log(respuesta);
         //res.send(respuesta);
+        req.data = respuesta;
+        req.status = 200;
+        next();
+    },
+
+    deleteOne: async function(req, res, next){
+        nuevo_stricker = new models_control();
+        let respuesta = await nuevo_stricker.deleteOne(req.data);
+        //console.log(respuesta);
         req.data = respuesta;
         req.status = 200;
         next();
