@@ -28,7 +28,8 @@ const toSendError = require("../../../generic_middleware/to_send_and_start_error
 const AuthError = require('../../../tools/tools').AuthError
 
 // GraphQL schema
-var schema = buildSchema(`
+
+var schema = buildSchema(` 
     type Query {
         get_User(username: String, password: String): Data_user
     },
