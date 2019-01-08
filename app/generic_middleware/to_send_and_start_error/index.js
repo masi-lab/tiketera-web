@@ -3,6 +3,7 @@ async function errorHandler(err, req ,res, next){
     let errors = []
     //console.log(err);
     if (err.message.includes('CUT_TAG')){
+        //console.log('CUT_TAG');
         // mongoose package all the validation errors, so we can have
         //more than 1 error
         let listOfErrors = err.message.split('"CUT_TAG"')
@@ -17,6 +18,7 @@ async function errorHandler(err, req ,res, next){
             errors.push(e)
         }
     }else if(err.CUT_TAG !== undefined){
+        //console.log('CUT_TAG 2');
         let dic = {};
         dic.message = err.CUT_TAG.message;
         dic.name = err.CUT_TAG.name;
@@ -24,10 +26,12 @@ async function errorHandler(err, req ,res, next){
         errors.push(dic);
         //console.log(errors);
     }else if(err.getError){
+        //console.log('getError');
         // if it is a custom error has getError() defined
         errors.push(err.getError())
       
     }else{
+        //console.log('Error');
         errors.push(err)
     }
   
@@ -40,6 +44,8 @@ async function errorHandler(err, req ,res, next){
     if(req.result === undefined)
         req.result = result;
 
+    //console.log(err);
+
     next(err);
   }
 
@@ -49,7 +55,9 @@ async function toSend(req, res, next){
         error: req.error
     }
     //console.log("ultimo send");
+    
     req.status = req.status || 200;
+    //console.log(result);
     res.status(req.status).send(result);
     //console.log('pasamos por el ult midd');
 }

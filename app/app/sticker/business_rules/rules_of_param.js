@@ -22,6 +22,8 @@ function get_param(req, param, ignore_param){
 }
 
 function post_body(req, param, ignore_param){
+    //console.log(req.body)
+
     let data = {};
 
     if (param.length == 0){
