@@ -36,7 +36,8 @@ class controlador_de_sticker
     }
 
     async deleteOne(diccionario_datos){
-        let resultado = await Models.delete({},diccionario_datos["_id"]);
+        //console.log(diccionario_datos)
+        let resultado = await Models.delete({_id:diccionario_datos["_id"]});
         //let resultado = await Models.findDeleted(diccionario_datos);
         //console.log(resultado);
         return resultado;

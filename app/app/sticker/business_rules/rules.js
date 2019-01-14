@@ -81,6 +81,7 @@ module.exports = {
 
     deleteOne: async function(req, res, next){
         nuevo_stricker = new models_control();
+        //console.log(req.data);
         let respuesta = await nuevo_stricker.deleteOne(req.data);
         //console.log(respuesta);
         req.data = respuesta;
