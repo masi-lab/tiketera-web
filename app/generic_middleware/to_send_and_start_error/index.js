@@ -52,7 +52,8 @@ async function errorHandler(err, req ,res, next){
 async function toSend(req, res, next){
     let result = {
         data: req.data,
-        error: req.error
+        error: req.error,
+        success: true,
     }
     //console.log("ultimo send");
     
