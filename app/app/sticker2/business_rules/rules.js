@@ -38,7 +38,7 @@ module.exports = {
         nuevo_stricker = new models_control();
 
         let respuesta = await nuevo_stricker.findOne(id);
-        console.log(respuesta);
+        //console.log(respuesta);
         var nombre = respuesta.nombre;
         var descripcion = respuesta.descripcion;
         print(nombre, descripcion, cant);
@@ -109,17 +109,7 @@ module.exports = {
 
         //console.log(quantity);
         
-        let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
-                    '%END%\n' +
-                    'Numero,Descripcion\n' +
-                    `${respuesta.nombre},${respuesta.descripcion}`
-        
-        for (let i=0; i < quantity; i++){
-            await fs.writeFile(`NewInvoice/${respuesta.nombre}_${i}.dat`, dato).catch(err=>{
-                throw new Custom_error("10", "error archivo", "error al intentar grabar")
-            });    
-        }
-        
+        print(respuesta.nombre, respuesta.descripcion, quantity);
 
         req.data = respuesta;
         req.status = 200;
