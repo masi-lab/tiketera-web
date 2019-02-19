@@ -10,7 +10,7 @@ var Schema = mongoose.Schema;
 
 var sticker2_schema = new Schema(
     {
-        nombre: {type: String, default:"", required: true, maxlength: [50, "muy grande la cadena de texto"]},
+        nombre: {type: String, default:"", required: false, maxlength: [50, "muy grande la cadena de texto"]},
         descripcion: {type: String, default:"", required: false, maxlength: [50, "muy grande la cadena de texto"]}
     }
 );

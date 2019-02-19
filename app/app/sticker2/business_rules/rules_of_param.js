@@ -43,7 +43,6 @@ function post_body(req, param, ignore_param){
 
 module.exports = {
     find: function(req,res, next){
-        
         let ignore_param = ["__v"];
         let param = []; // si esta vacio te busca todo los parametros q tenga la "TABLA"
         
@@ -78,9 +77,7 @@ module.exports = {
     save_print: function(req,res, next){
         let ignore_param = ["_id", "__v"];
         let param = ["nombre", "descripcion", "quantity"]; // si esta vacio te busca todo los parametros q tenga la "TABLA"
-
         req.data = post_body(req, param, ignore_param);
-
         //console.log(req.data);
         
         next();

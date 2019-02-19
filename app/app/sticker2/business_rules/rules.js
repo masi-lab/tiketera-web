@@ -7,6 +7,19 @@ var Custom_error_tag = require("../../../tools/tools").Custom_error_with_cut_tag
 var fs = require('fs').promises;
 const pag_not_found = require('../../../tools/tools').pag_not_found
 
+print = async (nombre, descripcion, cant) => {
+    let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
+                '%END%\n' +
+                'Numero,Descripcion\n' +
+                `${nombre},${descripcion}`
+    
+    for (let i=0; i < cant; i++){
+        await fs.writeFile(`NewInvoice/${nombre}_${i}.dat`, dato).catch(err=>{
+            throw new Custom_error("10", "error archivo", "error al intentar grabar")
+        });    
+    }
+}
+
 module.exports = {
     save_print: async function (req, res, next){
         sticker = new models_control();
@@ -18,8 +31,19 @@ module.exports = {
 
         let msg = await sticker.save_print(req.data);
 
-        //res.send(msg);
-        req.data = msg;
+        var cant = msg[1];
+        var msg_resultado = msg[0];
+        var id = msg_resultado._id;
+
+        nuevo_stricker = new models_control();
+
+        let respuesta = await nuevo_stricker.findOne(id);
+        console.log(respuesta);
+        var nombre = respuesta.nombre;
+        var descripcion = respuesta.descripcion;
+        print(nombre, descripcion, cant);
+
+        req.data = msg_resultado;
         req.status = 200;
         next();
     }, 
@@ -73,6 +97,7 @@ module.exports = {
     },
     
     print: async function(req, res, next){
+        
         nuevo_stricker = new models_control();
 
         let id_obj = {_id: req.data._id};
@@ -87,10 +112,10 @@ module.exports = {
         let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
                     '%END%\n' +
                     'Numero,Descripcion\n' +
-                    `${respuesta.codigo},${respuesta.descripcion}`
+                    `${respuesta.nombre},${respuesta.descripcion}`
         
         for (let i=0; i < quantity; i++){
-            await fs.writeFile(`NewInvoice/${respuesta.codigo}_${i}.dat`, dato).catch(err=>{
+            await fs.writeFile(`NewInvoice/${respuesta.nombre}_${i}.dat`, dato).catch(err=>{
                 throw new Custom_error("10", "error archivo", "error al intentar grabar")
             });    
         }

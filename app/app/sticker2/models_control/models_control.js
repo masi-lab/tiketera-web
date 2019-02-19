@@ -29,9 +29,9 @@ class controlador_de_sticker
         var models = new Models(diccionario_datos);
         let resultado = await models.save();
         
-        console.log(cant);
+        //console.log(cant);
         
-        return resultado;
+        return [resultado, cant];
     }
     async deleteOne(diccionario_datos){
         //console.log(diccionario_datos)
