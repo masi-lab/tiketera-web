@@ -97,21 +97,14 @@ module.exports = {
     },
     
     print: async function(req, res, next){
-        
-        nuevo_stricker = new models_control();
+      
+        print(req.data.nombre, req.data.descripcion, req.data.quantity);
 
-        let id_obj = {_id: req.data._id};
-        let quantity = req.data.quantity;
-        quantity = Number(quantity);
-
-        let respuesta = await nuevo_stricker.findOne(id_obj);
-        //console.log(respuesta);
-
-        //console.log(quantity);
-        
-        print(respuesta.nombre, respuesta.descripcion, quantity);
-
-        req.data = respuesta;
+        req.data ={
+            "nombre": req.data.nombre,
+            "descripcion": req.data.descripcion,
+            "quantity": req.data.quantity
+        };
         req.status = 200;
         next();
     },
