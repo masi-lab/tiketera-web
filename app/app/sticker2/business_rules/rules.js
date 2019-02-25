@@ -7,14 +7,52 @@ var Custom_error_tag = require("../../../tools/tools").Custom_error_with_cut_tag
 var fs = require('fs').promises;
 const pag_not_found = require('../../../tools/tools').pag_not_found
 
+depurar_nombre_archivo = (dato) => {
+    letras = 'qwertyuiopasdfghjklzxcvbnm0123456789';
+    aux=''
+
+    for(i=0; i < dato.length; i++){
+        for(x=0; x < letras.length; x++){
+            if (dato[i] == letras[x]){
+                aux = aux + letras[x];
+            }
+        }
+    }
+
+    return aux;
+}
+
+
+depurar_dato = (dato) => {
+    aux=''
+
+    for(i=0; i < dato.length; i++){
+        if (dato[i] == ','){
+            aux = aux + '.';
+        }else if(dato[i] == '/'){
+            aux = aux + '/';
+            aux = aux + '/';
+        }else{
+            aux = aux + dato[i];
+        }
+    }
+
+    return aux;
+}
+
 print = async (nombre, descripcion, cant) => {
+    nombre = depurar_dato(nombre);
+    descripcion = depurar_dato(descripcion);
+    var nombre_archivo = depurar_nombre_archivo(nombre);
+
+    
     let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
                 '%END%\n' +
                 'Numero,Descripcion\n' +
                 `${nombre},${descripcion}`
     
     for (let i=0; i < cant; i++){
-        await fs.writeFile(`NewInvoice/${nombre}_${i}.dat`, dato).catch(err=>{
+        await fs.writeFile(`NewInvoice/${nombre_archivo}_${i}.dat`, dato).catch(err=>{
             throw new Custom_error("10", "error archivo", "error al intentar grabar")
         });    
     }
