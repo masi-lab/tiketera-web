@@ -46,7 +46,7 @@ print = async (nombre, descripcion, cant) => {
     var nombre_archivo = depurar_nombre_archivo(nombre);
 
     
-    let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
+    let dato = '%BTW% /AF=c:\\command\\plantilla_manu.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
                 '%END%\n' +
                 'Numero,Descripcion\n' +
                 `${nombre},${descripcion}`
