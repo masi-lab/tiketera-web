@@ -75,6 +75,40 @@ class pag_not_found extends Custom_error {
   }
 }
 
+
+depurar_nombre_archivo = (dato) => {
+  letras = 'qwertyuiopasdfghjklzxcvbnm0123456789';
+  aux=''
+
+  for(i=0; i < dato.length; i++){
+      for(x=0; x < letras.length; x++){
+          if (dato[i] == letras[x]){
+              aux = aux + letras[x];
+          }
+      }
+  }
+
+  return aux;
+}
+
+
+depurar_dato = (dato) => {
+  aux=''
+
+  for(i=0; i < dato.length; i++){
+      if (dato[i] == ','){
+          aux = aux + '.';
+      }else if(dato[i] == '/'){
+          aux = aux + '/';
+          aux = aux + '/';
+      }else{
+          aux = aux + dato[i];
+      }
+  }
+
+  return aux;
+}
+
 //----------------------------------------------------------------------------------------------
 
 module.exports.depurar_codigo = depurar_codigo
@@ -86,3 +120,6 @@ module.exports.Custom_error = Custom_error;
 
 module.exports.AuthError = AuthError;
 module.exports.pag_not_found = pag_not_found;
+
+module.exports.depurar_nombre_archivo = depurar_nombre_archivo;
+module.exports.depurar_dato = depurar_dato;

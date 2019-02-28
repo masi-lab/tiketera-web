@@ -6,6 +6,8 @@ var Custom_error = require("../../../tools/tools").Custom_error;
 var Custom_error_tag = require("../../../tools/tools").Custom_error_with_cut_tag;
 var fs = require('fs').promises;
 const pag_not_found = require('../../../tools/tools').pag_not_found
+const depurar_nombre_archivo = require('../../../tools/tools').depurar_nombre_archivo;
+const depurar_dato = require('../../../tools/tools').depurar_dato;
 
 module.exports = {
     update: async function (req, res, next){
@@ -97,6 +99,9 @@ module.exports = {
         quantity = Number(quantity);
 
         let respuesta = await nuevo_stricker.findOne(id_obj);
+        codigo = depurar_dato(respuesta.codigo);
+        descripcion = depurar_dato(respuesta.descripcion);
+        var nombre_archivo = depurar_nombre_archivo(respuesta.codigo);
         //console.log(respuesta);
 
         //console.log(quantity);
@@ -104,10 +109,10 @@ module.exports = {
         let dato = '%BTW% /AF=c:\\command\\plantilla.btw /D="%Trigger File Name%" /PRN="EasyCoder PD41 (203 dpi) - IPL" /R=3 /P /DD \n' + 
                     '%END%\n' +
                     'Numero,Descripcion\n' +
-                    `${respuesta.codigo},${respuesta.descripcion}`
+                    `${codigo},${descripcion}`
         
         for (let i=0; i < quantity; i++){
-            await fs.writeFile(`NewInvoice/${respuesta.codigo}_${i}.dat`, dato).catch(err=>{
+            await fs.writeFile(`NewInvoice/${nombre_archivo}_${i}.dat`, dato).catch(err=>{
                 throw new Custom_error("10", "error archivo", "error al intentar grabar")
             });    
         }

@@ -65,8 +65,9 @@ async function toSend(req, res, next){
 
 
 async function toSendError(err, req ,res, next){
-    //console.log("ultimo error");
-    //console.log(req.result)
+    
+    console.log("ultimo error");
+    console.log(req.result)
     res.status(500).send(req.result);
 }
 
