@@ -79,23 +79,39 @@ class pag_not_found extends Custom_error {
 depurar_nombre_archivo = (dato) => {
   letras = 'qwertyuiopasdfghjklzxcvbnm0123456789';
   aux=''
-
-  for(i=0; i < dato.length; i++){
-      for(x=0; x < letras.length; x++){
-          if (dato[i] == letras[x]){
-              aux = aux + letras[x];
-          }
-      }
+  if (dato != undefined){
+    for(i=0; i < dato.length; i++){
+        for(x=0; x < letras.length; x++){
+            if (dato[i] == letras[x]){
+                aux = aux + letras[x];
+            }
+        }
+    }
   }
 
   return aux;
 }
 
+depurar_dato_fecha = (dato) => {
+  aux=''
+  
+  if (dato != undefined){
+    for(i=0; i < dato.length; i++){
+        if (dato[i] == '/'){
+            aux = aux + '-';
+        }else{
+            aux = aux + dato[i];
+        }
+    }
+  }
+
+  return aux;
+}
 
 depurar_dato = (dato) => {
   aux=''
-
-  for(i=0; i < dato.length; i++){
+  if (dato != undefined){
+    for(i=0; i < dato.length; i++){
       if (dato[i] == ','){
           aux = aux + '.';
       }else if(dato[i] == '/'){
@@ -104,8 +120,8 @@ depurar_dato = (dato) => {
       }else{
           aux = aux + dato[i];
       }
+    }
   }
-
   return aux;
 }
 

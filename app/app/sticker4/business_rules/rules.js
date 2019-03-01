@@ -40,7 +40,6 @@ var self = module.exports = {
 
     find: async function(req, res, next){
         nuevo_stricker = new models_control();
- 
         for(data in req.data){
             if(data != '_id'){
                 req.data[data] = {$regex: req.data[data]};
@@ -48,7 +47,6 @@ var self = module.exports = {
         }
 
         let respuesta = await nuevo_stricker.find(req.data);
-
         req.data = respuesta;
         req.status = 200;
         next();
@@ -116,7 +114,7 @@ var self = module.exports = {
         etiqueta = depurar_dato(etiqueta);
         numero_serie = depurar_dato(numero_serie);
         ubicacion = depurar_dato(ubicacion);
-        fecha_alta = depurar_dato(fecha_alta);
+        fecha_alta = depurar_dato_fecha(fecha_alta);
         numero_equipo = depurar_dato(numero_equipo);
         ot = depurar_dato(ot);
         modelo = depurar_dato(modelo);
