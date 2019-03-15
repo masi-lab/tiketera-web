@@ -18,7 +18,8 @@ module.exports.controlador_de_users =
 
     findOne: async (diccionario_datos) => {
         let resultado = await Models.findOne(diccionario_datos);
-        delete resultado.__v;
+        if(resultado !== null)
+            delete resultado.__v;
         return resultado;
     },
 

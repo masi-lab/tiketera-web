@@ -54,7 +54,6 @@ var schema = buildSchema(`
 var getUser = async function(args, req) { 
     // HERE WE CAUGHT THE USER n REQ
     //console.log(`Logeado como: ${req.user.username}`);
-
     
     //throw new AuthError("000", "Este modulo no acepta user INVITADO");
 
@@ -71,7 +70,7 @@ var  root = {
 
 //--------------------------------------------------------------------------------------------------------
 
-router_user.use(control_logeo);
+//router_user.use(control_logeo);
 
 router_user.use('/*', controller.control_rout);
 
@@ -88,7 +87,10 @@ router_user.use('/', express_graphql((req, res, next) => ({
 
         let errors = []
         
-        errors.push(err.originalError.getError())
+        console.log(err);
+
+        //errors.push(err.originalError.getError())
+        errors.push(err);
 
         let result = {
             success: false,

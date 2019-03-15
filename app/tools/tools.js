@@ -116,7 +116,7 @@ depurar_dato = (dato) => {
           aux = aux + '.';
       }else if(dato[i] == '/'){
           aux = aux + '/';
-          aux = aux + '/';
+          //aux = aux + '/';
       }else{
           aux = aux + dato[i];
       }
