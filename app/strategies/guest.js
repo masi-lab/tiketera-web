@@ -15,7 +15,6 @@ module.exports = function () {
 }
 
 // Custom Strategy for Guests
-
 function GuestStrategy(options, verify) {
   if (typeof options == 'function') {
     verify = options;
@@ -33,9 +32,12 @@ util.inherits(GuestStrategy, Strategy);
 
 GuestStrategy.prototype.authenticate = function (req, options) {
   var self = this;
+  req.registro_de_autorizacion = {}
   this._verify(req, function (err, user, info) {
     if (err) { return self.error(err); }
     if (!user) { return self.fail(info); }
     self.success(user, info);
   });
+  req.registro_de_autorizacion.autorizado= false;
+  req.registro_de_autorizacion.user= user;
 };

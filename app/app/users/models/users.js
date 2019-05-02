@@ -2,7 +2,7 @@
   Esto es la base de datos (modelo, etc)
 */
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const CONFIG = require('../../../../config/config')
 const UserError = require('../../../tools/tools').UserError

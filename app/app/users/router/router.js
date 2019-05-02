@@ -57,8 +57,10 @@ var getUser = async function(args, req) {
     
     //throw new AuthError("000", "Este modulo no acepta user INVITADO");
 
+    //console.log(req.registro_de_autorizacion);
+    
     let respuesta = {};
-    respuesta  = await controller.login2(args);   
+    //respuesta  = await controller.login2(args);   
 
     //console.log(respuesta);
     return respuesta;
@@ -70,7 +72,7 @@ var  root = {
 
 //--------------------------------------------------------------------------------------------------------
 
-//router_user.use(control_logeo);
+router_user.use(control_logeo);
 
 router_user.use('/*', controller.control_rout);
 
@@ -87,7 +89,7 @@ router_user.use('/', express_graphql((req, res, next) => ({
 
         let errors = []
         
-        console.log(err);
+        //console.log(err);
 
         //errors.push(err.originalError.getError())
         errors.push(err);
